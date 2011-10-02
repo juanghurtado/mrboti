@@ -1,34 +1,40 @@
-# GtalkBot
+# Mr. Boti
 
-GtalkBot is a Ruby Gtalk/XMPP client Bot that will connect to a server and will be listening to the authorized users messages and search for specific 'mapped' commands in order to launch specific local tasks.
+Mr. Boti is a Ruby Gtalk/XMPP client bot that, once up and running, will be listening to the authorized users messages and search for specific registered commands in order to launch specific tasks.
 
-The main idea would be to use my GoogleTalk account from the mobile or even from the PC Desktop application, to remotely control my Linux NAS server, for an easy way to start/stop/restart some application/service without having to login from SSH to do it.
+## Installation
 
-This is my first Ruby application/script, so bare in mind that coding techniques may need to be improved.
+- Just clone this repo with `git clone git@github.com:juanghurtado/mrboti.git`
+- Create a new `config.yml` file with your own data based on the template given at `config-sample.yml`
+- Install required gems with the command `bundle` on your terminal (you'll need [Bundler](https://github.com/carlhuda/bundler) for this one: `gem install bundler`)
 
-Would also like to add a special note to avoid calling direct Linux commands (there is a 'ls -la' example just as a proof-of-concept) because it may suffer from some security issues, please read this:
-
-http://stackoverflow.com/questions/4650636/forming-sanitary-shell-commands-or-system-calls-in-ruby
-
-
-Before running the script it is necessary to change the user credentials in the config.ylm file.
+## Running
 
 Running the script just requires to:
 
-    ruby gtalkbot.rb
+```ruby
+ruby boti.rb
+```
 
+## Current commands
 
-Adding additional commands can be done in the 'initialize_callbacks' function, just requires to add additional callback to the list:
+- `help` Show a list of available commands
+- `twitter` Working with Twitter
+  - `twitter last <username>` Show last tweet by `<username>`
+  - `twitter show [count] <username>` Show last `[count]` tweets (default 5) by `<username>`
+  - `new "<tweet text>"` Create a new tweet on Mr. Botti Twitter account
 
-    add_callback(:hello) do |arg|
-      sendmessage("Hello World off Ruby! This sh1t r0ck5!")  
-    end
+## Adding more commands
 
-The callback name 'hello' will then be used as the command name! Please check the examples to see how to send extra parameters with the command!
+Adding additional commands can be done in the `initialize_callbacks` function:
 
+```ruby
+# When Mr. Boti recieves "hello", he responds like the gentleman he is
+add_callback(:hello) do |arg|
+  sendmessage "Hello there! My name is Mr. Boti, and I'm here to help you."
+end
+```
 
-### TOBEDONE
+## Acknowledgement
 
-* Limit communications to specific accounts (will only listen commands from specific user account)
-* Access Control the commands (e.g.: user1 can call all, user2 will only have access to specific commands)
-* Escape Parameters from possible security flaws!
+This bot is based on the work made by [Nelson Neves](https://github.com/nneves) on his [GtalkBot](https://github.com/nneves/GtalkBot). Big thanks to him.
