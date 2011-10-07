@@ -2,18 +2,38 @@ GEM
   remote: http://rubygems.org/
   specs:
     addressable (2.2.6)
+    api_cache (0.2.3)
+    cleverbot (0.1.1)
+      httparty (~> 0.8.0)
     eventmachine (0.12.10)
-    faraday (0.7.4)
+    faraday (0.7.5)
       addressable (~> 2.2.6)
-      multipart-post (~> 1.1.0)
+      multipart-post (~> 1.1.3)
       rack (>= 1.1.0, < 2)
     faraday_middleware (0.7.0)
       faraday (~> 0.7.3)
     hashie (1.1.0)
+    httparty (0.8.1)
+      multi_json
+      multi_xml
+    log4r (1.1.9)
+    mechanize (2.0.1)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 1.8)
+      nokogiri (~> 1.4)
+      webrobots (~> 0.0, >= 0.0.9)
     multi_json (1.0.3)
     multi_xml (0.4.1)
     multipart-post (1.1.3)
-    rack (1.3.4)
+    net-http-digest_auth (1.1.1)
+    net-http-persistent (1.9)
+    nokogiri (1.5.0)
+    octopi (0.4.5)
+      api_cache
+      httparty (>= 0.4.5)
+      mechanize (>= 0.9.3)
+      nokogiri (>= 1.3.1)
+    rack (1.3.3)
     simple_oauth (0.1.5)
     twitter (1.7.2)
       faraday (~> 0.7.4)
@@ -22,12 +42,18 @@ GEM
       multi_json (~> 1.0.0)
       multi_xml (~> 0.4.0)
       simple_oauth (~> 0.1.5)
+    webrobots (0.0.12)
+      nokogiri (>= 1.4.4)
     xmpp4r (0.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  cleverbot
   eventmachine
+  log4r
+  octopi
+  rack (= 1.3.3)
   twitter
   xmpp4r

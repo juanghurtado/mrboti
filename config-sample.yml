@@ -2,7 +2,10 @@ bot:
   username: your-bot-account@gmail.com # Existing account of your bot
   password: bot-password # Password of the account
   allowed: ['friend1@gmail.com', 'friend1@gmail.com'] # Authorized accounts for communication
+  debug: true # Show Jabber debug
 twitter:
   consumer_key: YOUR CONSUMER KEY # Twitter consumer key
   consumer_secret: YOUR CONSUMER SECRET KEY # Twitter consumer secret key
+  oauth_token: YOUR OAUTH TOKEN # Twitter OAuth token
+  oauth_token_secret: YOUR OAUTH TOKEN SECRET # Twitter OAuth token secret
   gateway: api.apigee.com # Twitter gateaway
