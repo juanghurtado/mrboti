@@ -1,26 +1,9 @@
 # encoding: UTF-8
 require 'bot-logger'
+require 'monkey-patches'
 require 'time'
 require 'twitter'
 require 'yaml'
-
-# UGLY PATCH
-class String
-  
-  def is_numeric?
-    begin Float(self) ; true end rescue false
-  end
-  
-end
-
-class NilClass
-  
-  def is_numeric?
-    return false
-  end
-  
-end
-# END UGLY PATCH
 
 # Public: Methods for interacting with Twitter.
 #
