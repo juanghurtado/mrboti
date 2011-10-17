@@ -3,23 +3,28 @@ require 'bot'
 require 'bot-cleverbot'
 require 'bot-logger'
 require 'bot-github'
+require 'bot-hudson'
 require 'bot-twitter'
 require 'eventmachine'
 
 class MrBoti
-  
+
   def initialize
     bot = Bot.new
     bot.connect
-  
+
     bot.on_command :twitter do |command, from|
       bot.send_message from, BotTwitter.exec_command(command)
     end
-    
+
     bot.on_command :github do |command, from|
       bot.send_message from, BotGithub.exec_command(command)
     end
-    
+
+    bot.on_command :hudson do |command, from|
+      bot.send_message from, BotHudson.exec_command(command)
+    end
+
     bot.on_friend_petition do |from, item, presence|
       if bot.allowed_friend? friend
         bot.accept_friend(friend)
@@ -34,7 +39,7 @@ class MrBoti
       end
     end
   end
-  
+
 end
 
 EM.run {

@@ -9,3 +9,9 @@ twitter:
   oauth_token: YOUR OAUTH TOKEN # Twitter OAuth token
   oauth_token_secret: YOUR OAUTH TOKEN SECRET # Twitter OAuth token secret
   gateway: api.apigee.com # Twitter gateaway
+hudson:
+  base_uri: http://localhost:8080 # Hudson URL
+  options:
+    :basic_auth:
+      :username: "" # Username if Hudson behind basic HTTP security
+      :password: "" # Password if Hudson behind basic HTTP security

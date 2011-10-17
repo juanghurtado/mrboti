@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'cleverbot'
 gem 'eventmachine'
+gem 'httparty'
 gem 'log4r'
 gem 'octopi'
 gem 'rack', '1.3.3'
