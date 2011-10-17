@@ -11,9 +11,11 @@ require 'cleverbot'
 #   BotCleverbot.say("How are you doing?")
 #   # => "I'm doing fine, thanks."
 module BotCleverbot
-  
+
   @log = BotLogger.log
-  
+
+  @log.info "[BotCleverbot] Loading..."
+
   # Public: Send a message to Cleverbot
   #
   # msg - String with the message.
@@ -34,5 +36,5 @@ module BotCleverbot
       return false
     end
   end
-  
+
 end

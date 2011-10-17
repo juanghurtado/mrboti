@@ -12,9 +12,11 @@ require 'octopi'
 #   BotGithub.exec_command("github commmits rails/rails 3")
 #   # => ["commit1", "commit2", "commit3"]
 module BotGithub
-  
+
   @log = BotLogger.log
-  
+
+  @log.info "[BotGitHub] Loading..."
+
   # Public: Executes a GitHub bot command. It parses the
   #         recieved command arguments looking for a valid
   #         commands (commits…) and arguments (username,
@@ -34,21 +36,21 @@ module BotGithub
     case args[1]
     when "commits"
       @log.info "[BotGitHub] `github commits` command recieved: #{args}"
-      
+
       case args[2]
         when nil
           return "Please, tell me the username/repository pair: github commits rails/rails"
         else
           return "The format for username and repository should be: username/repository" if !args[2].include?('/')
-          
+
           username, repository = *args[2].split('/')
-          
+
           count = args[3].is_numeric? ? args[3].to_i : 5
-          
+
           if !(1..10).include?(count)
             count = 5
           end
-          
+
           return get_commits(username, repository, count)
       end
     else
@@ -58,9 +60,9 @@ module BotGithub
   -> commits <username>/<repository> <count>: Show last <count> commits from <username>/<repository>: github commits rails/rails 8}
     end
   end
-  
+
   private
-  
+
   # Internal: Get commits from a repository.
   #
   # username   - A String with the username of the repository owner.
@@ -75,14 +77,14 @@ module BotGithub
   # Returns an Array of String with the composed text for each commit.
   def self.get_commits(username, repository, count)
     commits = []
-    
+
     Octopi::Repository.find(:user => username, :name => repository).commits[0..count].each do |commit|
       commits << parse_commit(commit)
     end
-    
+
     return commits
   end
-  
+
   # Internal: Format a commit to make it visually readable.
   #
   # commit - A Commit object.
@@ -100,7 +102,7 @@ module BotGithub
     email = commit.author['email']
     date = Time.parse(commit.committed_date).strftime("%d/%m/%Y %H:%M")
     url = "http://github.com/"+ commit.url
-    
+
     return "[#{id}] \"#{message}\"\n#{name} <#{email}> #{date}\n#{url}\n\n"
   end
 end
