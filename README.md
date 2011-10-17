@@ -21,11 +21,20 @@ ruby mr-boti.rb
 
 ### Twitter
 
-- `twitter` Working with Twitter
-  - `twitter last <username>` Show last tweet by `<username>`
-  - `twitter show [count] <username>` Show last `[count]` tweets (default 5) by `<username>`
-  - `new "<tweet text>"` Create a new tweet on Mr. Boti Twitter account
-    
+- `twitter last <username>` Show last tweet by `<username>`
+- `twitter show [count] <username>` Show last `[count]` tweets (default 5) by `<username>`
+- `twitter new "<tweet text>"` Create a new tweet on Mr. Boti Twitter account
+
+### GitHub
+
+- `github commits <username>/<repository> <count>`: Show last `<count>` commits from `<username>`/`<repository>`
+
+### Hudson
+
+- `hudson build <job_name>` - Launch a build on `<job>`
+- `hudson jobs <view_name>` - List all existing jobs on given `<view>` (default "all")
+- `hudson views` - List all existing views
+
 ### Cleverbot
 
 When Mr. Boti don't find an actual command, he will respond you more or less like a human using [Cleverbot]("http://cleverbot.com/").
@@ -45,7 +54,6 @@ end
 
 ## TO-DO
 
-- GitHub bot module
 - Tests
 - i18n
 
