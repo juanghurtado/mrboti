@@ -22,7 +22,7 @@ ruby mr-boti.rb
 ### Twitter
 
 - `twitter last <username>` Show last tweet by `<username>`
-- `twitter show [count] <username>` Show last `[count]` tweets (default 5) by `<username>`
+- `twitter show <username> [count]` Show last `[count]` tweets (default 5) by `<username>`
 - `twitter new "<tweet text>"` Create a new tweet on Mr. Boti Twitter account
 
 ### GitHub

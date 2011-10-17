@@ -47,19 +47,19 @@ end
 #   EM.run {
 #     bot = Bot.new 'config.yml'
 #     bot.connect
-#     
+#
 #     bot.on_message do |text, from, msg|
 #       puts "Message recieved from #{from}: '#{text}'"
 #     end
 #   }
 class Bot
-    
+
   # Public: Initialize a Bot.
   #
   # config_file - A String naming the config file (default: nil).
   def initialize(config_file = "./config.yml")
     @log = BotLogger.log
-    
+
     begin
       @config    = YAML::parse(File.open(config_file))
       @username  = @config.transform['bot']['username']
@@ -72,7 +72,7 @@ class Bot
       @log.error "Error parsing config file '#{config_file}': #{$!}"
     end
   end
-  
+
   # Public: Register a new bot command listener that will execute &block
   #         when executing it with `exec_command`
   #
@@ -90,15 +90,15 @@ class Bot
   #   end
   #
   #   bot.exec_command("hello world", "sample@user.com")
-  #   # => "Hello world, sample@user.com" 
+  #   # => "Hello world, sample@user.com"
   #
   def on_command(name, &block)
     name = name.to_s
     @commands[name] = block
-    
+
     @log.info "New command added: #{name}"
   end
-  
+
   # Public: Search for a registered bot command to execute it if found.
   #
   # command - A String containing the command to be executed.
@@ -122,10 +122,10 @@ class Bot
       @log.warn "Bot is not connected. Can't execute the command."
       return false
     end
-    
+
     begin
       command = Shellwords.shellwords(command)
-    
+
       @commands.each do |name, block|
         if command[0].downcase.eql?(name)
           @log.info "Registered command found. Executing: '#{name}'"
@@ -133,15 +133,15 @@ class Bot
           return true
         end
       end
-    
-      @log.warn "Command '#{command[0]}' not found"
+
+      @log.warn "Command '#{command[0]}' not found. Full trace: #{command}"
       return false
     rescue
       @log.error "Error executing '#{command}': #{$!}"
       return false
     end
   end
-  
+
   # Public: Search for a registered bot command and tries to execute it.
   #         If the command is not found, executes the Block.
   #
@@ -152,7 +152,7 @@ class Bot
   #           It recieves as parameters a String with the command,
   #           and a String with the address of the user that made
   #           the command execution petition.
-  # 
+  #
   #   bot = Bot.new
   #   bot.connect
   #
@@ -165,13 +165,13 @@ class Bot
   #   end
   def exec_command_or_do(command, from, &block)
     return if self.exec_command(command, from)
-    
+
     unless block.nil?
       @log.info "Executing default action"
       block.call(command, from)
     end
   end
-  
+
   # Public: Connect the bot to the server.
   #
   # Examples:
@@ -184,23 +184,23 @@ class Bot
       Jabber::debug = @debug
       @log.info "Jabber debug mode is active"
     end
-    
+
     begin
       @log.info "Connecting to '#{@username}'..."
       @client.connect
-      
+
       @log.info "Authenticating..."
       @client.auth(@password)
-      
+
       @client.send(Presence.new.set_type(:available))
       @roster = Roster::Helper.new(@client)
-      
+
       @log.info "Connected with user '#{@username}'"
     rescue
       @log.error "Error connecting to '#{@username}': #{$!}"
     end
   end
-  
+
   # Public: Disconnect the bot from the server.
   # Examples:
   #
@@ -218,7 +218,7 @@ class Bot
       @log.error "Error disconnecting '#{@username}': #{$!}"
     end
   end
-  
+
   # Public: Returns the bot connection status.
   #
   # Examples:
@@ -243,13 +243,13 @@ class Bot
       return false
     end
   end
-  
+
   # Public: Creates a callback for friend petition requests.
   #
   # &block - The Block executed on every friend petition request.
   #          Block will recieve as parameters: a String representing
   #          the address of the user that made the petition, a
-  #          Jabber::Roster::Helper::RosterItem representing the 
+  #          Jabber::Roster::Helper::RosterItem representing the
   #          user on your Roster (or nil if not present), and a
   #          <presence /> stanza representing the user that made
   #          the petition.
@@ -272,7 +272,7 @@ class Bot
       end
     end
   end
-  
+
   # Public: Creates a callback for incoming messages.
   #
   # &block - The Block executed on every message recieved.
@@ -299,7 +299,7 @@ class Bot
       end
     end
   end
-  
+
   # Public: Wrapper for sending a message to a user, regardless if the message
   #         is a String with the text of the message, or an Array of texts.
   #
@@ -329,7 +329,7 @@ class Bot
       @log.warn "Bot is not connected. Can't send the message."
       return false
     end
-    
+
     case message
     when Array
       message.each do |text|
@@ -342,7 +342,7 @@ class Bot
       return false
     end
   end
-  
+
   # Public: Checks if a friend is allowed to interact with the Bot.
   #
   # friend - A String with the address of the user that will be checked.
@@ -361,7 +361,7 @@ class Bot
   def allowed_friend?(friend)
     @allowed.include? friend.to_s.split('/').first
   end
-  
+
   # Public: Accept a friend request petition.
   #
   # friend - A String with the address of the friend making the petition.
@@ -378,7 +378,7 @@ class Bot
       @log.error "Error accepting friend #{friend}: #{$!}"
     end
   end
-  
+
   # Public: Decline a friend request petition.
   #
   # friend - A String with the address of the friend making the petition.
@@ -395,9 +395,9 @@ class Bot
       @log.error "Error declining friend #{friend}: #{$!}"
     end
   end
-  
+
   private
-  
+
   # Internal: Send a message text to a user address.
   #
   # to   - A String with the address of the user that will recieve the message.

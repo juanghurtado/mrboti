@@ -92,7 +92,7 @@ module BotTwitter
       return \
 %{Please, tell me what action do you want me to do with Twitter:
   -> last <username>: Show last tweet by <username>
-  -> show [count] <username>: Show last [count] tweets (default 5) by <username>
+  -> show <username> [count]: Show last [count] tweets (default 5) by <username>
   -> new "<tweet text>": Create a new tweet on Mr. Botti Twitter account}
     end
   end
