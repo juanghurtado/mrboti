@@ -26,10 +26,10 @@ class MrBoti
     end
 
     bot.on_friend_petition do |from, item, presence|
-      if bot.allowed_friend? friend
-        bot.accept_friend(friend)
+      if bot.allowed_friend? from
+        bot.accept_friend(from)
       else
-        bot.decline_friend(friend)
+        bot.decline_friend(from)
       end
     end
 
