@@ -336,6 +336,7 @@ class Bot
     case message
     when Array
       message.each do |text|
+        sleep 1
         return unless send(to, text)
       end
     when String
