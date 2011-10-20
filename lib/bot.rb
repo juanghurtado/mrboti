@@ -100,6 +100,7 @@ class Bot
   end
 
   # Public: Search for a registered bot command to execute it if found.
+  #         Command is executed on a new Thread.
   #
   # command - A String containing the command to be executed.
   # from    - A String containing the address of the user that
@@ -129,7 +130,9 @@ class Bot
       @commands.each do |name, block|
         if command[0].downcase.eql?(name)
           @log.info "Registered command found. Executing: '#{name}'"
-          block.call(command, from)
+          Thread.new {
+            block.call(command, from)
+          }
           return true
         end
       end
