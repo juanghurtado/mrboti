@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require 'bot-logger'
+require 'bot_logger'
 require 'cleverbot'
 
 # Public: Methods for interacting with Cleverbot

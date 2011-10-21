@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require 'bot-logger'
+require 'bot_logger'
 require 'yaml'
 require 'xmpp4r/client'
 require 'xmpp4r/roster'
@@ -70,6 +70,21 @@ class Bot
       @commands  = {}
     rescue
       @log.error "Error parsing config file '#{config_file}': #{$!}"
+    end
+  end
+
+  # Public: Load all bot modules located at `modules/` and
+  #         define an `on_command` listener for all of them.
+  def load_modules
+    @log.info "Loading modules..."
+
+    modules.each do |mod|
+      require mod[:file]
+      klass = eval(mod[:class_name])
+
+      self.on_command klass.main_command do |command, from|
+        self.send_message from, klass.exec_command(command)
+      end
     end
   end
 
@@ -401,6 +416,34 @@ class Bot
   end
 
   private
+
+  # Internal: Get all modules available at `modules` folder.
+  #
+  # Examples:
+  #
+  #   bot = Bot.new
+  #
+  #   bot.modules
+  #   # => [{ :file => 'path/to/module/sample.rb', :class_name => 'Sample' }]
+  #
+  # Returns an Array of Hashes with :file for the file path of the module
+  # and :class_name for the real name of the module itself.
+  def modules
+    mods = []
+
+    Dir[File.dirname(__FILE__) + '/modules/*.rb'].each do |file|
+      file_name = Pathname.new(file).basename
+      file_name_no_ext = file_name.to_s.chomp(File.extname(file_name))
+      class_name = file_name_no_ext.split('_').collect!{ |w| w.capitalize }.join
+
+      mods << {
+        :file => file,
+        :class_name => class_name
+      }
+    end
+
+    return mods
+  end
 
   # Internal: Send a message text to a user address.
   #

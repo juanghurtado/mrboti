@@ -1,6 +1,6 @@
 # encoding: UTF-8
-require 'bot-logger'
-require 'monkey-patches'
+require 'bot_logger'
+require 'monkey_patches'
 require 'httparty'
 
 # Public: Methods for interacting with Hudson.
@@ -100,6 +100,11 @@ module BotHudson
   -> jobs <view> - List all existing jobs on given <view> (default "all"): hudson list view_name
   -> views - List all existing views: hudson views}
     end
+  end
+
+  # Public: Returns the command symbol for this module.
+  def self.main_command
+    :hudson
   end
 
   private

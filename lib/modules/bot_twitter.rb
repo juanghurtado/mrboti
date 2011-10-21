@@ -1,6 +1,6 @@
 # encoding: UTF-8
-require 'bot-logger'
-require 'monkey-patches'
+require 'bot_logger'
+require 'monkey_patches'
 require 'time'
 require 'twitter'
 require 'yaml'
@@ -95,6 +95,11 @@ module BotTwitter
   -> show <username> [count]: Show last [count] tweets (default 5) by <username>
   -> new "<tweet text>": Create a new tweet on Mr. Botti Twitter account}
     end
+  end
+
+  # Public: Returns the command symbol for this module.
+  def self.main_command
+    :twitter
   end
 
   private

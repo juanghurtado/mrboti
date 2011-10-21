@@ -1,6 +1,6 @@
 # encoding: UTF-8
-require 'bot-logger'
-require 'monkey-patches'
+require 'bot_logger'
+require 'monkey_patches'
 require 'octopi'
 
 # Public: Methods for interacting with GitHub.
@@ -61,6 +61,11 @@ module BotGithub
     end
   end
 
+  # Public: Returns the command symbol for this module.
+  def self.main_command
+    :github
+  end
+
   private
 
   # Internal: Get commits from a repository.
@@ -78,7 +83,7 @@ module BotGithub
   def self.get_commits(username, repository, count)
     commits = []
 
-    Octopi::Repository.find(:user => username, :name => repository).commits[0..count].each do |commit|
+    Octopi::Repository.find(:user => username, :name => repository).commits[0..(count - 1)].each do |commit|
       commits << parse_commit(commit)
     end
 

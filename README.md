@@ -52,6 +52,18 @@ bot.on_command :hello do |command, from|
 end
 ```
 
+If you want to create new command modules, you must create a new Ruby file at `lib/modules` which name would be the underscore version of the name of the module you are going to write. For example:
+
+File named `lib/modules/bot_sample.rb` for a `BotSample` module.
+
+That module should follow some conventions:
+
+- It should have a method called `self.exec_command(command)`: It will recieve the command written by the user and should return a String or an Array of Strings with the message/s to be sent back to the user.
+- It should have a method called `self.main_command`: It should return a Symbol with the name of the command. For example: `:sample` if you want the bot to respond to commands starting with `sample`.
+
+Take a look at default modules to see how it is done.
+
+
 ## TO-DO
 
 - Tests
